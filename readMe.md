@@ -1,176 +1,135 @@
-# BlogAPI
+# FinGuard API
 
-A RESTful Blog API built with **Node.js**, **Express.js**, and **MongoDB** that enables users to create, manage, and interact with blog posts securely using JWT authentication.
+Backend API for **FinGuard**, a financial resilience platform that analyzes a user's financial position, forecasts potential shortfalls, assesses financial risk, and provides actionable recommendations.
 
-## 🚀 Features
+Financial data is sourced primarily from **CRC Credit Bureau Nigeria** and normalized before being processed by FinGuard's financial engine.
 
-- 🔐 User authentication with JWT
-- 👤 User registration and login
-- ✍️ Create, update, and delete blog posts
-- 📖 Retrieve all posts or a single post
-- 💬 Add and manage comments
-- ❤️ Like and unlike blog posts
-- 🔍 Search and filter blog posts
-- 🛡️ Protected routes with authentication middleware
-- ✅ Request validation and centralized error handling
+## Introduction
 
-## 🛠️ Tech Stack
+The FinGuard API is responsible for:
 
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- JSON Web Token (JWT)
-- bcrypt
-- dotenv
+- User authentication and consent
+- CRC financial-data integration and synchronization
+- Financial profiles, debts, and expenses
+- Financial assessment and DTI calculation
+- Cashflow and shortfall forecasting
+- Financial risk assessment
+- Recommendations and risk alerts
+- Dashboard data aggregation
 
-## 📦 Installation
+CRC-specific logic is isolated behind a dedicated integration layer so that the core financial engine remains independent of the external data provider.
 
-### Prerequisites
+## Project Stack
 
-- Node.js (v18 or later)
-- MongoDB Atlas or a local MongoDB instance
-- npm
+- **Runtime:** Node.js
+- **Language:** TypeScript
+- **API:** REST
+- **Database:** PostgreSQL
+- **ORM:** TBD
+- **Validation:** TBD
+- **Authentication:** TBD
+- **External Data Provider:** CRC Credit Bureau Nigeria
+- **Testing:** TBD
 
-### Clone the Repository
+> Some implementation choices are intentionally left open and will be finalized during development.
+
+## Getting Started
+
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/kachi-jasperD/BlogAPI.git
-cd BlogAPI
+git clone <repository-url>
+cd finguard-api
 ```
 
-### Install Dependencies
+### 2. Install dependencies
 
 ```bash
 npm install
 ```
 
-### Configure Environment Variables
+### 3. Configure environment variables
 
-Create a `.env` file in the project root and add:
-
-```env
-PORT=3000
-MONGODB_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
+```bash
+cp .env.example .env
 ```
 
-### Start the Development Server
+Update `.env` with the required database, authentication, and CRC configuration.
+
+### 4. Run the development server
 
 ```bash
 npm run dev
 ```
 
-### Start the Production Server
-
-```bash
-npm start
-```
-
----
-
-## 📚 API Documentation
-
-The complete API documentation is available on Postman:
-
-👉 **https://documenter.getpostman.com/view/2449601/2sBY4SMz4r**
-
-The documentation includes:
-
-- Authentication
-- Available endpoints
-- Request & response examples
-- Parameters
-- Error responses
-- Status codes
-
----
-
-## 📁 Project Structure
+## Node.js Module Structure
 
 ```text
-BlogAPI/
-├── src/
-│   ├── config/
-│   ├── controllers/
-│   ├── middleware/
-│   ├── models/
-│   ├── routes/
-│   ├── services/
-│   └── app.js
-├── server.js
-├── package.json
-└── README.md
+src/
+├── modules/
+│   ├── auth/
+│   ├── consent/
+│   ├── users/
+│   ├── financial-data/
+│   │   ├── crc/
+│   │   ├── normalization/
+│   │   └── sync/
+│   ├── financial-profile/
+│   ├── debts/
+│   ├── expenses/
+│   ├── assessment/
+│   ├── forecast/
+│   ├── risk/
+│   ├── recommendations/
+│   ├── alerts/
+│   └── dashboard/
+│
+└── common/
+    ├── auth/
+    ├── errors/
+    ├── logging/
+    ├── validation/
+    └── database/
 ```
 
----
+## Architecture Principle
 
-## 🔑 Environment Variables
+The application should follow this flow:
 
-| Variable | Description |
-|----------|-------------|
-| `PORT` | Server port |
-| `MONGODB_URI` | MongoDB connection string |
-| `JWT_SECRET` | Secret key used to sign JWTs |
-
----
-
-## 🔒 Authentication
-
-Protected endpoints require a JWT access token.
-
-Include the token in the request headers:
-
-```http
-Authorization: Bearer <your_token>
+```text
+CRC Credit Bureau
+        ↓
+CRC Integration
+        ↓
+Data Normalization
+        ↓
+Financial Engine
+        ↓
+Assessment / Forecast / Risk
+        ↓
+Recommendations / Alerts / Dashboard
 ```
 
----
+CRC-specific responses should **not** be used directly throughout the application. They should first be transformed into FinGuard's internal financial data models.
 
-## 🧪 Running Tests
+## API Versioning
 
-```bash
-npm test
+All API endpoints are currently versioned under:
+
+```text
+/v1
 ```
 
----
+Example:
 
-## 🤝 Contributing
-
-Contributions are welcome!
-
-1. Fork the repository.
-2. Create a new branch.
-
-```bash
-git checkout -b feature/your-feature
+```text
+GET /v1/dashboard
+GET /v1/financial-position
+GET /v1/financial-risk
 ```
 
-3. Commit your changes.
+## Development Status
 
-```bash
-git commit -m "Add your feature"
-```
+🚧 **MVP — In Development**
 
-4. Push to GitHub.
-
-```bash
-git push origin feature/your-feature
-```
-
-5. Open a Pull Request.
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License.
-
----
-
-## 👨‍💻 Author
-
-**Jasper D. Kachi**
-
-- GitHub: https://github.com/kachi-jasperD
-- API Docs: https://documenter.getpostman.com/view/2449601/2sBY4SMz4r
+The API specification is based on the FinGuard PRD and the current architectural decision to use CRC Credit Bureau Nigeria as the financial-data source.
