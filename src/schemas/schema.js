@@ -1,10 +1,16 @@
 const Joi = require('joi');
 
 // --- Authentication Schemas ---
+// const registerSchema = Joi.object({
+//   email: Joi.string().email().required().trim(),
+//   password: Joi.string().min(8).required(),
+//   name: Joi.string().trim().required()
+// });
 const registerSchema = Joi.object({
+  firstName: Joi.string().trim().required(),
+  lastName: Joi.string().trim().required(),
   email: Joi.string().email().required().trim(),
   password: Joi.string().min(8).required(),
-  name: Joi.string().trim().required()
 });
 
 const loginSchema = Joi.object({
