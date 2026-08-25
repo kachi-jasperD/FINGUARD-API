@@ -25,7 +25,11 @@ const requireAuth = async (req, res, next) => {
       });
     }
 
-    req.user = payload;
+    // req.user = payload;
+    req.user = {
+      id: user._id,
+      email: user.email,
+    };
     next();
   } catch (error) {
     res.status(401).json({
