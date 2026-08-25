@@ -24,17 +24,6 @@ const financialProfileSchema = Joi.object({
   liquidBuffer: Joi.number().min(0).default(0)
 });
 
-// --- Debt Schema ---
-// const debtSchema = Joi.object({
-//   creditorName: Joi.string().trim().required(),
-//   balance: Joi.number().min(0).required(),
-//   monthlyPayment: Joi.number().min(0).required(),
-//   interestRate: Joi.number().min(0).max(100).required(),
-//   dueDate: Joi.number().integer().min(1).max(31).optional(),
-//   category: Joi.string()
-//     .valid('MORTGAGE', 'AUTO', 'PERSONAL', 'CREDIT_CARD', 'STUDENT', 'OTHER')
-//     .required()
-// });
 
 const debtSchema = Joi.object({
   lenderName: Joi.string().trim().required(),
@@ -44,10 +33,6 @@ const debtSchema = Joi.object({
   interestRate: Joi.number().min(0).max(100).optional(),
 });
 
-// const debtUpdateSchema = debtSchema.fork(
-//   ['creditorName', 'balance', 'monthlyPayment', 'interestRate', 'category'],
-//   (schema) => schema.optional()
-// );
 
 const debtUpdateSchema = debtSchema.fork(
   [
