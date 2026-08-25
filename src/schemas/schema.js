@@ -24,6 +24,7 @@ const financialProfileSchema = Joi.object({
   liquidBuffer: Joi.number().min(0).default(0)
 });
 
+
 // --- Debt Schema ---
 const debtSchema = Joi.object({
   creditorName: Joi.string().trim().required(),
