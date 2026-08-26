@@ -34,11 +34,7 @@ const financialProfileSchema = Joi.object({
   liquidBuffer: Joi.number().min(0).default(0)
 });
 
-// const financialProfileSchema = Joi.object({
-//   monthlyIncome: Joi.number().min(0).required(),
-//   additionalIncome: Joi.number().min(0).default(0),
-//   liquidBuffer: Joi.number().min(0).default(0)
-// });
+
 
 
 const debtSchema = Joi.object({
