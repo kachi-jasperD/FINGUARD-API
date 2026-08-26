@@ -2,7 +2,7 @@ const Debt = require("../models/debtModel");
 
 const createDebtProfile = async (req, res, next) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user.userId;
 
     const debtProfile = await Debt.create({
       userId,
@@ -21,7 +21,7 @@ const createDebtProfile = async (req, res, next) => {
 
 const updateDebtProfile = async (req, res, next) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user.userId;
     const debtId = req.params.id;
 
        console.log("UPDATE USER ID:", userId);
@@ -53,7 +53,7 @@ const updateDebtProfile = async (req, res, next) => {
 
 const getDebtProfile = async (req, res, next) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user.userId;
 
     console.log("GET USER:", req.user);
     console.log("QUERY USER ID:", userId);
@@ -74,7 +74,7 @@ const getDebtProfile = async (req, res, next) => {
 
 const deleteDebtProfile = async (req, res, next) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user.userId;
     const debtId = req.params.id;
 
     // Find and delete the debt profile by ID and user ID to ensure ownership
