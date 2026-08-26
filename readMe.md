@@ -140,6 +140,12 @@ The API specification is based on the FinGuard PRD and the current architectural
 
 [View FinGuard-API](https://render.app/)
 
+## API Documentation: 
+https://documenter.getpostman.com/view/2449601/2sBYAsyCFz
+
+## Live Url
+https://finguard-api-n71k.onrender.com/
+
 ---
 
 ### **Endpoint Assignments:**
@@ -240,3 +246,5 @@ This document outlines key collaboration issues identified during recent retrosp
 ---
 
 Implementing these guidelines will help maintain code quality, foster better collaboration, and minimize potential conflicts during development.
+
+## 
