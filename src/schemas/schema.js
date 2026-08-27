@@ -26,9 +26,15 @@ const recordConsentSchema = Joi.object({
 // --- Financial Profile Schema ---
 const financialProfileSchema = Joi.object({
   monthlyIncome: Joi.number().min(0).required(),
+  recurringExpenses: Joi.number().min(0).required(),
   additionalIncome: Joi.number().min(0).default(0),
+  accountBalance: Joi.number().min(0).required(),
+  currency: Joi.string().valid('EUR', 'USD', 'GBP', 'ZAR', 'NGN').default('EUR'),
+  lastAnalyzedAt: Joi.date().optional(),
   liquidBuffer: Joi.number().min(0).default(0)
 });
+
+
 
 
 const debtSchema = Joi.object({
