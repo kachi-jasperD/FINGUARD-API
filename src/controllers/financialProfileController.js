@@ -79,7 +79,7 @@ const updateFinancialProfile = async (req, res, next) => {
 
 const deleteFinancialProfile = async (req, res, next) => {
   try {
-    const userId = req.user.userId;
+    const userId = req.user.id;
     const profile = await FinancialProfile.findOneAndDelete({ userId });
 
     if (!profile) {

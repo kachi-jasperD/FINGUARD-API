@@ -2,10 +2,10 @@ const express = require("express");
 
 const { createAnalysis } = require("../controllers/analysisController");
 
-const authenticate = require("../middlewares/authenticate");
+const requireAuth = require("../middlewares/requireAuth");
 
 const router = express.Router();
 
-router.post("/", authenticate, createAnalysis);
+router.post("/", requireAuth, createAnalysis);
 
 module.exports = router;

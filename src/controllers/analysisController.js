@@ -6,7 +6,7 @@ const { generateAnalysis } = require("../services/analysisService");
 
 const createAnalysis = async (req, res, next) => {
   try {
-    const userId = req.user.userId;
+    const userId = req.user.id;
 
     const profile = await FinancialProfile.findOne({ userId });
 
