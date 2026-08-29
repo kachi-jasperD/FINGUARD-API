@@ -140,10 +140,12 @@ The API specification is based on the FinGuard PRD and the current architectural
 
 [View FinGuard-API](https://render.app/)
 
-## API Documentation: 
+## API Documentation:
+
 https://documenter.getpostman.com/view/2449601/2sBYAsyCFz
 
 ## Live Url
+
 https://finguard-api-n71k.onrender.com/
 
 ---
@@ -247,4 +249,55 @@ This document outlines key collaboration issues identified during recent retrosp
 
 Implementing these guidelines will help maintain code quality, foster better collaboration, and minimize potential conflicts during development.
 
-## 
+##
+
+                    POST /api/analyses
+                            │
+                            ▼
+                    Authenticate user
+                            │
+                            ▼
+                 Find financial profile
+                            │
+                            ▼
+                    Find user's debts
+                            │
+                            ▼
+              Calculate financial metrics
+                    ┌───────┴───────┐
+                    ▼               ▼
+                  DTI             Buffer
+                    │               │
+                    └───────┬───────┘
+                            ▼
+                     Financial Context
+                            │
+                            ▼
+                     OpenAI / AI model
+                            │
+                            ▼
+                   Generate feedback
+                            │
+                            ▼
+                   Save Analysis to MongoDB
+                            │
+                            ▼
+                         201 Created
+
+---
+
+Postman
+↓
+POST /api/analyses
+↓
+requireAuth ✅
+↓
+Find financial profile ✅
+↓
+Find debts ✅
+↓
+Calculate DTI/buffer ✅
+↓
+generateAnalysis() ✅
+↓
+OpenAI API ✅
