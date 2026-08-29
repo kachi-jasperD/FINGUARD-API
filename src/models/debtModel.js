@@ -62,4 +62,4 @@ const debtSchema = new mongoose.Schema(
   },
 );
 
-module.exports = mongoose.model("Debt", debtSchema);
+module.exports = mongoose.models.Debt || mongoose.model("Debt", debtSchema);
