@@ -1,5 +1,5 @@
 const FinancialProfile = require("../models/financialProfileModel");
-const Debt = require("../models/DebtModel");
+const Debt = require("../models/debtModel");
 const Analysis = require("../models/analysisModel");
 
 // const { generateAnalysis } = require("../services/analysisService");
