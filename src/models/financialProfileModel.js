@@ -50,4 +50,6 @@ const financialProfileSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("FinancialProfile", financialProfileSchema);
+module.exports =
+  mongoose.models.FinancialProfile ||
+  mongoose.model("FinancialProfile", financialProfileSchema);

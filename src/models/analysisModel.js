@@ -28,22 +28,40 @@ const analysisSchema = new mongoose.Schema(
 
     keyDrivers: [
       {
-        title: String,
-        explanation: String,
+        title: {
+          type: String,
+          required: true,
+        },
+
+        explanation: {
+          type: String,
+          required: true,
+        },
+
         severity: {
           type: String,
           enum: ["low", "medium", "high"],
+          required: true,
         },
       },
     ],
 
     recommendations: [
       {
-        title: String,
-        reason: String,
+        title: {
+          type: String,
+          required: true,
+        },
+
+        reason: {
+          type: String,
+          required: true,
+        },
+
         priority: {
           type: String,
           enum: ["low", "medium", "high"],
+          required: true,
         },
       },
     ],
@@ -65,7 +83,9 @@ const analysisSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
-module.exports = mongoose.model("Analysis", analysisSchema);
+module.exports =
+  mongoose.models.Analysis ||
+  mongoose.model("Analysis", analysisSchema);

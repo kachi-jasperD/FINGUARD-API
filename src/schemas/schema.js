@@ -1,11 +1,6 @@
 const Joi = require('joi');
 
 // --- Authentication Schemas ---
-// const registerSchema = Joi.object({
-//   email: Joi.string().email().required().trim(),
-//   password: Joi.string().min(8).required(),
-//   name: Joi.string().trim().required()
-// });
 const registerSchema = Joi.object({
   firstName: Joi.string().trim().required(),
   lastName: Joi.string().trim().required(),
@@ -35,8 +30,7 @@ const financialProfileSchema = Joi.object({
 });
 
 
-
-
+// --- Debt Schema ---
 const debtSchema = Joi.object({
   lenderName: Joi.string().trim().required(),
   debtType: Joi.string().required(),
