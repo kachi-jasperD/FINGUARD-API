@@ -1,15 +1,15 @@
-const FinancialProfile = require('../models/FinancialProfileModel');
+const FinancialProfile = require("../models/financialProfileModel");
 
 const createFinancialProfile = async (req, res, next) => {
   try {
     const { id: userId } = req.user;
-    console.log('DEBUG req.user:', req.user); 
+    console.log("DEBUG req.user:", req.user);
     const existingProfile = await FinancialProfile.findOne({ userId });
 
     if (existingProfile) {
       return res.status(400).json({
         success: false,
-        message: 'Financial profile already exists for this user',
+        message: "Financial profile already exists for this user",
       });
     }
 
@@ -22,7 +22,7 @@ const createFinancialProfile = async (req, res, next) => {
 
     return res.status(201).json({
       success: true,
-      message: 'Financial profile created successfully',
+      message: "Financial profile created successfully",
       data: newProfile,
     });
   } catch (err) {
@@ -38,7 +38,7 @@ const getFinancialProfileById = async (req, res, next) => {
     if (!profile) {
       return res.status(404).json({
         success: false,
-        message: 'Financial profile not found',
+        message: "Financial profile not found",
       });
     }
 
@@ -57,19 +57,19 @@ const updateFinancialProfile = async (req, res, next) => {
     const updatedProfile = await FinancialProfile.findByIdAndUpdate(
       id,
       req.validatedBody,
-      { new: true, runValidators: true }
+      { new: true, runValidators: true },
     );
 
     if (!updatedProfile) {
       return res.status(404).json({
         success: false,
-        message: 'Financial profile not found',
+        message: "Financial profile not found",
       });
     }
 
     return res.status(200).json({
       success: true,
-      message: 'Financial profile updated successfully',
+      message: "Financial profile updated successfully",
       data: updatedProfile,
     });
   } catch (err) {
@@ -85,13 +85,13 @@ const deleteFinancialProfile = async (req, res, next) => {
     if (!profile) {
       return res.status(404).json({
         success: false,
-        message: 'Financial profile not found',
+        message: "Financial profile not found",
       });
     }
 
     return res.status(200).json({
       success: true,
-      message: 'Financial profile deleted successfully',
+      message: "Financial profile deleted successfully",
     });
   } catch (err) {
     next(err);
@@ -103,4 +103,4 @@ module.exports = {
   getFinancialProfileById,
   updateFinancialProfile,
   deleteFinancialProfile,
-};  
+};
