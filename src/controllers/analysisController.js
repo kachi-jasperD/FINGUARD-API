@@ -1,4 +1,4 @@
-const FinancialProfile = require("../models/FinancialProfileModel");
+const FinancialProfile = require("../models/financialProfileModel");
 const Debt = require("../models/DebtModel");
 const Analysis = require("../models/analysisModel");
 
