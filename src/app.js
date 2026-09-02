@@ -8,6 +8,7 @@ const userRoute = require("./routes/userRoute.js");
 const debtRoute = require("./routes/debtRoute.js");
 const financialProfilesRoute = require("./routes/financialProfilesRoute.js");
 const analysisRoute = require("./routes/analysisRoute");
+const authRoutes = require("./routes/authRoutes.js");
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -23,9 +24,11 @@ app.use(RequestLogger);
 //------------------------------------
 
 app.use("/api/users", userRoute);
+app.use("/api/auth", authRoutes);
 app.use("/api/debts", debtRoute);
 app.use("/api/financial-profiles", financialProfilesRoute);
 app.use("/api/analyses", analysisRoute);
+
 
 //------------------------------------
 // LAST MIDDLEWARE
