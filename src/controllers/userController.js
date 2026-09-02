@@ -52,11 +52,15 @@ const loginUser = async (req, res) => {
       return res.status(401).json({ error: "Invalid email or password" });
     }
 
-    const token = jwt.sign(
-      { userId: user._id },
-      process.env.JWT_SECRET,
-      { expiresIn: "1d" }
-    );
+    if (!user.isVerified) {
+      return res.status(403).json({
+        error: "Please verify your email before logging in",
+      });
+    }
+
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
 
     res.status(200).json({
       message: "Login successful",
