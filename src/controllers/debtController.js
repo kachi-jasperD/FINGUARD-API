@@ -1,4 +1,5 @@
 const Debt = require("../models/debtModel");
+const { createNotification } = require("../services/notificationService");
 
 const createDebtProfile = async (req, res, next) => {
   try {
@@ -14,6 +15,14 @@ const createDebtProfile = async (req, res, next) => {
       ...req.validatedBody,
     });
 
+     await createNotification({
+       userId,
+       type: "debt",
+       title: "New Debt Added",
+       description: `${debtProfile.lenderName} debt has been added`,
+       amount: debtProfile.outstandingBalance,
+       direction: "debit",
+     });
     
     return res.status(201).json({
       success: true,

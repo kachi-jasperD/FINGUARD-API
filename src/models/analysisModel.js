@@ -70,9 +70,13 @@ const analysisSchema = new mongoose.Schema(
       monthlyIncome: Number,
       recurringExpenses: Number,
       accountBalance: Number,
+      additionalIncome: Number,
+      currency: String,
       totalDebtBalance: Number,
       totalMonthlyDebtPayments: Number,
+      totalObligations: Number,
       dti: Number,
+      dtiPercentage: Number,
       buffer: Number,
     },
 
@@ -83,9 +87,8 @@ const analysisSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 module.exports =
-  mongoose.models.Analysis ||
-  mongoose.model("Analysis", analysisSchema);
+  mongoose.models.Analysis || mongoose.model("Analysis", analysisSchema);

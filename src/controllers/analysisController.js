@@ -1,6 +1,7 @@
 const FinancialProfile = require("../models/financialProfileModel");
 const Debt = require("../models/debtModel");
 const Analysis = require("../models/analysisModel");
+const { createNotification } = require("../services/notificationService");
 
 // const { generateAnalysis } = require("../services/analysisService");
 const { generateMockAnalysis } = require("../services/mockAnalysisService");
@@ -39,6 +40,9 @@ const createAnalysis = async (req, res, next) => {
       0,
     );
 
+    const totalObligations =
+      totalMonthlyDebtPayments + (profile.recurringExpenses || 0);
+
     // Calculate DTI
     const dti =
       profile.monthlyIncome > 0
@@ -60,6 +64,7 @@ const createAnalysis = async (req, res, next) => {
       currency: profile.currency,
       totalDebtBalance,
       totalMonthlyDebtPayments,
+      totalObligations,
       dti,
       dtiPercentage: dti * 100,
       buffer,
@@ -98,6 +103,32 @@ const createAnalysis = async (req, res, next) => {
       // modelUsed: "gpt-5",
       modelUsed: "mock-ai",
     });
+
+    // ==========================================
+    // CREATE SYSTEM NOTIFICATION
+    // ==========================================
+    // Every successful analysis generation informs the user that the
+    // forecast/analysis has been refreshed.
+    await createNotification({
+      userId,
+      type: "system",
+      title: "System Update",
+      description: "Your forecast has been updated",
+    });
+
+    // ==========================================
+    // CREATE FINANCIAL ALERT NOTIFICATION
+    // ==========================================
+    // A negative monthly buffer means the user's monthly obligations
+    // are greater than their monthly income.
+    if (buffer < 0) {
+      await createNotification({
+        userId,
+        type: "alert",
+        title: "Cashflow Alert",
+        description: "Your monthly cashflow is currently negative",
+      });
+    }
 
     return res.status(201).json({
       success: true,

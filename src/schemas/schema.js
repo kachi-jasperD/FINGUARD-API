@@ -125,6 +125,23 @@ const interventionSchema = Joi.object({
   outcome: Joi.string().trim().allow("").optional(),
 }); 
 
+// --- Payment Schema ---
+const paymentSchema = Joi.object({
+  type: Joi.string()
+    .valid("income", "expense", "debt_payment", "bill_payment")
+    .required(),
+
+  amount: Joi.number().positive().required(),
+
+  description: Joi.string().trim().required(),
+
+  recipient: Joi.string().trim().optional(),
+
+  paymentDate: Joi.date().optional(),
+});
+
+
+
 module.exports = {
   registerSchema,
   loginSchema,
@@ -143,4 +160,5 @@ module.exports = {
   alertFeedbackSchema,
   loanSimulationSchema,
   interventionSchema,
+  paymentSchema,
 };
